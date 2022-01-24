@@ -107,7 +107,7 @@ func (b *Request) Run(ctx context.Context, wce *Environment) (string, Status) {
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return log(b, reportError("reading request body", err), Error)
+		return log(b, reportError("reading request body", err), Retry)
 	}
 
 	err = resp.Body.Close()
@@ -150,6 +150,7 @@ func (b *Request) Run(ctx context.Context, wce *Environment) (string, Status) {
 
 	for _, key := range b.KeyChain {
 		if (key.StatusCode == resp.StatusCode) && (strings.Contains(strBody, key.TextKey)) {
+			//return log(b, fmt.Sprintf("found key: \"%s\"", key.TextKey), key.Status)
 			return log(b, fmt.Sprintf("found key: \"%s\" in %s", key.TextKey, logs), key.Status)
 		}
 	}
