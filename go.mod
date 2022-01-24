@@ -1,4 +1,4 @@
-module github.com/aidenesco/netroutine
+module github.com/DivineSentry/netroutine
 
 go 1.16
 
